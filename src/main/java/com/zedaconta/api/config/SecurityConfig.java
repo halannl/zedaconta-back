@@ -1,5 +1,6 @@
 package com.zedaconta.api.config;
 
+import com.zedaconta.api.security.CalculadoraSecurityFilter;
 import com.zedaconta.api.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,9 +31,13 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CalculadoraSecurityFilter calculadoraSecurityFilter;
     
     @Value("${cors.allowed-origins}")
     private String allowedOrigins;
+    
+    @Value("${calculadora.frontend-url}")
+    private String calculadoraFrontendUrl;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -44,9 +49,11 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/calculadora/**").hasAnyRole("FRONTEND", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(calculadoraSecurityFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .headers(headers -> headers.frameOptions().disable()) // For H2 console
                 .build();

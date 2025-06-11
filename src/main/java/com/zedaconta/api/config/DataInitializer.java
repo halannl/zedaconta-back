@@ -46,5 +46,19 @@ public class DataInitializer implements CommandLineRunner {
             userRepository.save(user);
             log.info("Regular user created successfully");
         }
+        
+        // Create frontend user if not exists
+        if (!userRepository.existsByUsername("frontend")) {
+            User frontendUser = new User();
+            frontendUser.setUsername("frontend");
+            frontendUser.setPassword(passwordEncoder.encode("frontend123"));
+            frontendUser.setEmail("frontend@zedaconta.com");
+            frontendUser.setFullName("Usuário Frontend");
+            frontendUser.setRole(Role.FRONTEND);
+            frontendUser.setEnabled(true);
+            
+            userRepository.save(frontendUser);
+            log.info("Frontend user created successfully");
+        }
     }
 }
