@@ -13,7 +13,7 @@ public class CalculadoraJurosService {
 
     public CalculadoraJurosResponse calcularJurosCompostos(CalculadoraJurosRequest request) {
         // Normalizar taxa de juros para o período mensal se necessário
-        double taxaJurosMensal = normalizarTaxaJuros(request.getTaxaJuros(), request.getPeriodoJuros()) * 0.01; // Converter de porcentagem para decimal
+        double taxaJurosMensal = normalizarTaxaJuros(request.getTaxaJuros(), request.getPeriodoJuros()); // Converter de porcentagem para decimal
         
         // Normalizar o tempo de investimento para meses
         int tempoEmMeses = normalizarTempoInvestimento(request.getTempoInvestimento(), request.getPeriodoInvestimento());
