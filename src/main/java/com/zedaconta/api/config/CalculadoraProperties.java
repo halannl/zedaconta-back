@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "calculadora")
+@ConfigurationProperties(prefix = "app.calculadora")
 public class CalculadoraProperties {
     private String frontendUrl;
+    private Integer maxRequisicoesSemLogin = 10; // Valor padrão caso não seja especificado
 }

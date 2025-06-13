@@ -21,10 +21,10 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
+    @Value("${app.jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expiration}")
+    @Value("${app.jwt.expiration}")
     private long validityInMilliseconds;
 
     private final UserDetailsService userDetailsService;

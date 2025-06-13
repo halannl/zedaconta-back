@@ -33,10 +33,10 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CalculadoraSecurityFilter calculadoraSecurityFilter;
     
-    @Value("${cors.allowed-origins}")
+    @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
     
-    @Value("${calculadora.frontend-url}")
+    @Value("${app.calculadora.frontend-url}")
     private String calculadoraFrontendUrl;
 
     @Bean
