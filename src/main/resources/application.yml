@@ -1,6 +1,17 @@
 spring:
   application:
     name: zedaconta-api
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:seu-email@gmail.com}
+    password: ${MAIL_PASSWORD:sua-senha}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   datasource:
     url: jdbc:h2:mem:zedacontadb
     username: sa
@@ -41,6 +52,12 @@ app:
   calculadora:
     frontend-url: ${CALCULADORA_FRONTEND_URL:http://localhost:5173}
     max-requisicoes-sem-login: ${CALCULADORA_MAX_REQUISICOES:3}
+    
+  # Email Configuration
+  email:
+    from: ${EMAIL_FROM:noreply@zedaconta.com}
+    verification-subject: "ZedaConta - Verificação de E-mail"
+    verification-expiry-minutes: 30
 
 # Logging
 logging:

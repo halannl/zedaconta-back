@@ -37,8 +37,8 @@ public class JwtTokenProvider {
         key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public String createToken(String username) {
-        Claims claims = Jwts.claims().setSubject(username);
+    public String createToken(String email) {
+        Claims claims = Jwts.claims().setSubject(email);
         
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -52,11 +52,11 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = userDetailsService.loadUserByUsername(getEmail(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public String getUsername(String token) {
+    public String getEmail(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

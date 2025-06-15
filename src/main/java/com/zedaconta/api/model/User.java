@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,21 +24,30 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String email;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
-    @Column(name = "full_name")
-    private String fullName;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     private boolean enabled = true;
+    
+    @Column(name = "verification_code", length = 6)
+    private String verificationCode;
+    
+    @Column(name = "verification_code_expiry")
+    private LocalDateTime verificationCodeExpiry;
+    
+    @Column(name = "email_verified")
+    private boolean emailVerified = false;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,5 +72,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+    
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

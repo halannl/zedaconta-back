@@ -20,42 +20,45 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         // Create admin user if not exists
-        if (!userRepository.existsByUsername("admin")) {
+        if (!userRepository.existsByEmail("admin@zedaconta.com")) {
             User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setEmail("admin@zedaconta.com");
-            admin.setFullName("Administrador");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setFirstName("Admin");
+            admin.setLastName("Zedaconta");
             admin.setRole(Role.ADMIN);
             admin.setEnabled(true);
+            admin.setEmailVerified(true);
             
             userRepository.save(admin);
             log.info("Admin user created successfully");
         }
         
         // Create regular user if not exists
-        if (!userRepository.existsByUsername("user")) {
+        if (!userRepository.existsByEmail("user@zedaconta.com")) {
             User user = new User();
-            user.setUsername("user");
-            user.setPassword(passwordEncoder.encode("user123"));
             user.setEmail("user@zedaconta.com");
-            user.setFullName("Usuário Padrão");
+            user.setPassword(passwordEncoder.encode("user123"));
+            user.setFirstName("Usuário");
+            user.setLastName("Padrão");
             user.setRole(Role.USER);
             user.setEnabled(true);
+            user.setEmailVerified(true);
             
             userRepository.save(user);
             log.info("Regular user created successfully");
         }
         
         // Create frontend user if not exists
-        if (!userRepository.existsByUsername("frontend")) {
+        if (!userRepository.existsByEmail("frontend@zedaconta.com")) {
             User frontendUser = new User();
-            frontendUser.setUsername("frontend");
-            frontendUser.setPassword(passwordEncoder.encode("frontend123"));
             frontendUser.setEmail("frontend@zedaconta.com");
-            frontendUser.setFullName("Usuário Frontend");
+            frontendUser.setPassword(passwordEncoder.encode("frontend123"));
+            frontendUser.setFirstName("Usuário");
+            frontendUser.setLastName("Frontend");
             frontendUser.setRole(Role.FRONTEND);
             frontendUser.setEnabled(true);
+            frontendUser.setEmailVerified(true);
             
             userRepository.save(frontendUser);
             log.info("Frontend user created successfully");
